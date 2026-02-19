@@ -15,7 +15,9 @@ function getUrlParams() {
         refs: parseInt(params.get('refs')) || 0,
         threshold: parseInt(params.get('threshold')) || 5,
         refLink: params.get('link') || '',
-        rewardReceived: params.get('reward') === '1'
+        rewardReceived: params.get('reward') === '1',
+        userId: params.get('user_id') || '-----',
+        firstName: params.get('first_name') || 'Пользователь'
     };
 }
 
@@ -23,17 +25,13 @@ function getUrlParams() {
 function updateUI() {
     const params = getUrlParams();
 
-    // Данные юзера из Telegram
-    const user = tg.initDataUnsafe?.user;
+    // Данные юзера из URL (надежнее для Reply кнопок)
+    document.getElementById('user-name').textContent = params.firstName;
+    document.getElementById('user-id').textContent = 'ID: ' + params.userId;
 
-    if (user) {
-        document.getElementById('user-name').textContent = user.first_name + (user.last_name ? ' ' + user.last_name : '');
-        document.getElementById('user-id').textContent = 'ID: ' + user.id;
-
-        // Попытка загрузить аватарку (используем плейсхолдер с инициалами)
-        const initial = user.first_name.charAt(0);
-        document.getElementById('user-avatar').src = `https://ui-avatars.com/api/?name=${initial}&background=007aff&color=fff&size=200`;
-    }
+    // Попытка загрузить аватарку (используем плейсхолдер с инициалами)
+    const initial = params.firstName.charAt(0);
+    document.getElementById('user-avatar').src = `https://ui-avatars.com/api/?name=${initial}&background=007aff&color=fff&size=200`;
 
     // Обновляем статистику рефералов
     document.getElementById('ref-count').textContent = params.refs;
