@@ -4,9 +4,7 @@ const tg = window.Telegram.WebApp;
 // Сообщаем телеграму, что приложение готово
 tg.ready();
 
-// Настройка цветов темы (опционально, если CSS переменных недостаточно)
-document.documentElement.style.setProperty('--bg-color', tg.themeParams.bg_color || '#1c1c1e');
-document.documentElement.style.setProperty('--text-color', tg.themeParams.text_color || '#ffffff');
+// Оставляем свои премиум цвета (игнорируем стандартную тему тг для нужного эффекта)
 
 // Функция получения параметров из URL
 function getUrlParams() {
@@ -29,10 +27,6 @@ function updateUI() {
     document.getElementById('user-name').textContent = params.firstName;
     document.getElementById('user-id').textContent = 'ID: ' + params.userId;
 
-    // Попытка загрузить аватарку (используем плейсхолдер с инициалами)
-    const initial = params.firstName.charAt(0);
-    document.getElementById('user-avatar').src = `https://ui-avatars.com/api/?name=${initial}&background=007aff&color=fff&size=200`;
-
     // Обновляем статистику рефералов
     document.getElementById('ref-count').textContent = params.refs;
     document.getElementById('ref-threshold').textContent = params.threshold;
@@ -41,11 +35,11 @@ function updateUI() {
     let percentage = (params.refs / params.threshold) * 100;
     if (percentage > 100) percentage = 100;
 
-    // Анимируем прогресс-бар
+    // Анимируем прогресс-бар плавно
     setTimeout(() => {
         const circle = document.getElementById('progress-circle');
         circle.style.background = `conic-gradient(var(--accent-color) ${percentage * 3.6}deg, var(--secondary-bg) 0deg)`;
-    }, 100);
+    }, 300);
 
     // Статус награды и тексты
     const rewardStatus = document.getElementById('reward-status');

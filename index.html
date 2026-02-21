@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -9,14 +10,13 @@
     <!-- Иконочные шрифты -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
     <div class="app-container">
-        
+
         <!-- Верхняя часть: Аватар и Имя -->
         <header class="profile-header glass-card">
-            <div class="avatar-container">
-                <img id="user-avatar" src="https://ui-avatars.com/api/?name=User&background=random" alt="Avatar">
-            </div>
+
             <h1 id="user-name">Загрузка...</h1>
             <p id="user-id">ID: -----</p>
         </header>
@@ -24,16 +24,16 @@
         <!-- Центральная часть: Прогресс рефералов -->
         <section class="progress-section glass-card">
             <h2>Ваш прогресс VIP</h2>
-            
+
             <div class="circular-progress" id="progress-circle">
                 <div class="inner-circle">
                     <span id="ref-count">0</span>
                     <span class="ref-total">/ <span id="ref-threshold">5</span></span>
                 </div>
             </div>
-            
+
             <p class="progress-text" id="progress-text">Пригласите друзей для получения VIP!</p>
-            
+
             <!-- Статус награды -->
             <div class="reward-status" id="reward-status">
                 <i class="fa-solid fa-gift"></i>
@@ -53,4 +53,5 @@
 
     <script src="app.js"></script>
 </body>
+
 </html>
