@@ -19,7 +19,8 @@ function getUrlParams() {
         rewardReceived: params.get('reward') === '1',
         userId: params.get('user_id') || '-----',
         firstName: params.get('first_name') || 'Пользователь',
-        joinDate: params.get('join_date') || ''
+        joinDate: params.get('join_date') || '',
+        avatar: params.get('avatar') || ''
     };
 }
 
@@ -204,6 +205,20 @@ function updateUI() {
         // Profile header
         document.getElementById('user-name').textContent = params.firstName;
         document.getElementById('user-id').textContent = 'ID: ' + params.userId;
+
+        // Avatar
+        if (params.avatar) {
+            var avatarInner = document.querySelector('.avatar-inner');
+            var img = document.createElement('img');
+            img.src = params.avatar;
+            img.alt = 'Avatar';
+            img.onerror = function () {
+                // Оставляем SVG если картинка не загрузилась
+                if (img.parentNode) img.parentNode.removeChild(img);
+            };
+            avatarInner.innerHTML = '';
+            avatarInner.appendChild(img);
+        }
 
         // VIP badge
         var badge = document.getElementById('vip-badge');
