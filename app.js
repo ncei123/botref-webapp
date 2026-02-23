@@ -58,13 +58,19 @@ function daysSinceJoin(dateStr) {
 }
 
 // ===== Achievements =====
-function renderAchievements(refs, rewardReceived) {
+function renderAchievements(refs, threshold, rewardReceived) {
+    // Динамические вехи на основе реального порога
+    var m25 = Math.max(2, Math.ceil(threshold * 0.25));
+    var m50 = Math.max(3, Math.ceil(threshold * 0.5));
+    var m75 = Math.max(4, Math.ceil(threshold * 0.75));
+
     var achievements = [
         { icon: '🚀', label: 'Старт', unlocked: true },
-        { icon: '👤', label: '1 друг', unlocked: refs >= 1 },
-        { icon: '🔥', label: '3 друга', unlocked: refs >= 3 },
-        { icon: '⭐', label: '5 друзей', unlocked: refs >= 5 },
-        { icon: '💎', label: '10 друзей', unlocked: refs >= 10 },
+        { icon: '👤', label: '1 реферал', unlocked: refs >= 1 },
+        { icon: '🔥', label: m25 + ' реф.', unlocked: refs >= m25 },
+        { icon: '⭐', label: m50 + ' реф.', unlocked: refs >= m50 },
+        { icon: '💎', label: m75 + ' реф.', unlocked: refs >= m75 },
+        { icon: '🏆', label: threshold + ' реф.', unlocked: refs >= threshold },
         { icon: '👑', label: 'VIP', unlocked: rewardReceived }
     ];
 
@@ -212,14 +218,8 @@ function updateUI() {
         refsEl.textContent = '0';
         animateCounter(refsEl, params.refs, 600);
 
-        var daysEl = document.getElementById('stat-days');
-        var days = daysSinceJoin(params.joinDate);
-        if (typeof days === 'number') {
-            daysEl.textContent = '0';
-            animateCounter(daysEl, days, 600);
-        } else {
-            daysEl.textContent = days;
-        }
+
+
 
         var statusEl = document.getElementById('stat-status');
         statusEl.textContent = params.rewardReceived ? 'VIP' : 'Free';
@@ -271,7 +271,7 @@ function updateUI() {
         }
 
         // Achievements
-        renderAchievements(params.refs, params.rewardReceived);
+        renderAchievements(params.refs, params.threshold, params.rewardReceived);
 
         // Referral link display
         var linkDisplay = document.getElementById('ref-link-display');
