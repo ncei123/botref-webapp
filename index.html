@@ -7,23 +7,68 @@
     <title>Мой Профиль</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="stylesheet" href="style.css">
-    <!-- Иконочные шрифты -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
     <div class="app-container">
 
-        <!-- Верхняя часть: Аватар и Имя -->
+        <!-- Профиль: Аватар + Имя -->
         <header class="profile-header glass-card">
-
-            <h1 id="user-name">Загрузка...</h1>
-            <p id="user-id">ID: -----</p>
+            <div class="avatar-wrapper">
+                <div class="avatar-ring">
+                    <div class="avatar-inner">
+                        <!-- SVG user icon placeholder -->
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v1.2c0 .7.5 1.2 1.2 1.2h16.8c.7 0 1.2-.5 1.2-1.2v-1.2c0-3.2-6.4-4.8-9.6-4.8z" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="vip-badge inactive" id="vip-badge">
+                    <i class="fa-solid fa-crown" style="font-size: 12px;"></i>
+                </div>
+            </div>
+            <h1 id="user-name">
+                <span class="skeleton skeleton-text" style="width: 120px; height: 22px; display: inline-block;"></span>
+            </h1>
+            <p id="user-id">
+                <span class="skeleton skeleton-text" style="width: 90px; height: 13px; display: inline-block;"></span>
+            </p>
         </header>
 
-        <!-- Центральная часть: Прогресс рефералов -->
+        <!-- Карточки статистики -->
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+                <div class="stat-value" id="stat-refs">
+                    <span class="skeleton skeleton-text"
+                        style="width: 30px; height: 20px; display: inline-block;"></span>
+                </div>
+                <div class="stat-label">Рефералов</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                <div class="stat-value" id="stat-days">
+                    <span class="skeleton skeleton-text"
+                        style="width: 30px; height: 20px; display: inline-block;"></span>
+                </div>
+                <div class="stat-label">Дней</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-star"></i></div>
+                <div class="stat-value" id="stat-status">
+                    <span class="skeleton skeleton-text"
+                        style="width: 30px; height: 20px; display: inline-block;"></span>
+                </div>
+                <div class="stat-label">Статус</div>
+            </div>
+        </section>
+
+        <!-- Прогресс рефералов -->
         <section class="progress-section glass-card">
-            <h2>Ваш прогресс VIP</h2>
+            <h2>Прогресс VIP</h2>
 
             <div class="circular-progress" id="progress-circle">
                 <div class="inner-circle">
@@ -32,16 +77,34 @@
                 </div>
             </div>
 
-            <p class="progress-text" id="progress-text">Пригласите друзей для получения VIP!</p>
+            <p class="progress-text" id="progress-text">Приглашайте друзей для получения VIP!</p>
 
-            <!-- Статус награды -->
             <div class="reward-status" id="reward-status">
                 <i class="fa-solid fa-gift"></i>
                 <span id="reward-text">Награда не получена</span>
             </div>
         </section>
 
-        <!-- Нижняя часть: Действия -->
+        <!-- Достижения -->
+        <section class="achievements-section glass-card">
+            <h2>Достижения</h2>
+            <div class="achievements-grid" id="achievements-grid">
+                <!-- Заполняются из JS -->
+            </div>
+        </section>
+
+        <!-- Реферальная ссылка -->
+        <section class="ref-link-section glass-card">
+            <h2>Ваша ссылка</h2>
+            <div class="ref-link-box" id="copy-link-box">
+                <span class="ref-link-text" id="ref-link-display">Загрузка...</span>
+                <div class="copy-icon">
+                    <i class="fa-solid fa-copy"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Действия -->
         <section class="action-section">
             <button id="share-btn" class="main-btn">
                 <i class="fa-solid fa-share-nodes"></i> Отправить ссылку друзьям
@@ -50,6 +113,11 @@
         </section>
 
     </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">Ссылка скопирована!</div>
+    <!-- Confetti container -->
+    <div class="confetti-container" id="confetti-container"></div>
 
     <script src="app.js"></script>
 </body>
